@@ -7,7 +7,7 @@
   repeat this process n times
 
   The numbers remaining are called Lucky number.
-  Below is the program to determine if a integer is lucky or nit.
+  Below is the program to determine if a integer is lucky or not.
 */
 func isLucky(number: UInt) -> Bool {
     var position = number
