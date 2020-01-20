@@ -1,4 +1,6 @@
 /* Function to calculate HCF of two numbers
+Find the smaller number.
+Now take number from 1 to this smaller number. If the current number is able to divide both our numbers update the HCF.
 */
 
 func calculateHCF(num1: Int, num2: Int) {
