@@ -1,6 +1,6 @@
 // Method 1
-
-func longestBinaryOne(_ number: Int) {
+/* program to find longest continous 1 occurence in the binary representation of a number. */
+func longestBinaryOne(_ number: Int) -> Int {
     var currentLongest = 0
     var current = 0
     var binaryNum = number
@@ -15,8 +15,22 @@ func longestBinaryOne(_ number: Int) {
         }
         binaryNum /= 2
     }
-    print(currentLongest)
+    return currentLongest
     
 }
 
-longestBinaryOne(16)
+print(longestBinaryOne(16))
+
+// Method 2 Using Bit Manipulation
+
+func longestBinaryOneBit(_ number: Int) -> Int {
+    var count = 0
+    var num = number
+    while num != 0 {
+        num = num & (num >> 1)
+        count += 1
+    }
+    return count
+}
+
+print(longestBinaryOneBit(15))
