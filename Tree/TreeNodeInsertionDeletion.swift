@@ -20,9 +20,9 @@ class Queue<T> {
 }
 
 class Tree<T> {
-    let data: T
-    var leftChild: Tree?
-    var rightChild: Tree?
+    var data: T
+    var leftChild: Tree<T>?
+    var rightChild: Tree<T>?
     
     init(_ data: T) {
         self.data = data
@@ -104,4 +104,65 @@ func levelOrderTraversel(_ tree: Tree<Int>?) {
 
 let newNode = Tree(9)
 root = insert(newNode, tree: root)!
+levelOrderTraversel(root)
+
+// Program for deletion
+
+func deleteNode(tree: Tree<Int>, node: Tree<Int>?) {
+    let queue = Queue<Tree<Int>>()
+    queue.enquque(tree)
+    while !queue.isEmpty {
+        let tree = queue.dequeue()
+        if let leftChild = tree.leftChild {
+            queue.enquque(leftChild)
+            if node === tree.leftChild {
+                tree.leftChild = nil
+                break
+            }
+        }
+        if let rightChild = tree.rightChild {
+            queue.enquque(rightChild)
+            if node === tree.rightChild {
+                tree.rightChild = nil
+                break
+            }
+        }
+    }
+}
+
+func deleteNodewith(_ data: Int, tree: Tree<Int>) -> Bool {
+    let queue = Queue<Tree<Int>>()
+    queue.enquque(tree)
+    var nodeFound: Tree<Int>?
+    var deepestNode: Tree<Int>?
+    while !queue.isEmpty {
+        let tree = queue.dequeue()
+        if data == tree.data {
+            nodeFound = tree
+        }
+        if let leftChild = tree.leftChild {
+            queue.enquque(leftChild)
+        }
+        if let rightChild = tree.rightChild {
+            queue.enquque(rightChild)
+        }
+        deepestNode = tree
+    }
+    if nodeFound != nil {
+        nodeFound?.data = deepestNode!.data
+        deleteNode(tree: tree, node: deepestNode)
+        return true
+    } else {
+        return false
+    }
+}
+
+
+print("########################")
+let elementFound = deleteNodewith(1, tree: root)
+if elementFound {
+    print("Element Present")
+} else {
+    print("Element Not Present")
+}
 levelOrderTraversel(root)
