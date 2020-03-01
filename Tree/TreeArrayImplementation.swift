@@ -1,4 +1,4 @@
-class Tree<T>{
+class Tree<T: Equatable>{
     private var storage = [T?](repeating: nil, count: 20)
     private var lastUsedIndex = 0
 
@@ -16,6 +16,20 @@ class Tree<T>{
 
     func lastIndex() -> Int {
         return lastUsedIndex
+    }
+    
+    func deleteNodeWithValue(_ data: T) -> Bool {
+        if lastUsedIndex == 0 {
+            return false
+        }
+        for i in 1...lastUsedIndex {
+            if storage[i] == data {
+                storage[i] = storage[lastUsedIndex]
+                lastUsedIndex -= 1
+                return true
+            }
+        }
+        return false
     }
 }
 
@@ -45,4 +59,9 @@ func inOrderTraversal(_ tree: Tree<Int>, index: Int) {
     inOrderTraversal(tree, index: index * 2 + 1)
 }
 
+inOrderTraversal(tree, index: 1)
+
+// Deletion of Node
+print("########## Delete ###########")
+_ = tree.deleteNodeWithValue(5)
 inOrderTraversal(tree, index: 1)
